@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import inquirer from "inquirer";
 import { filterAllModules } from "./src/utils/filterAllModules.js";
 import { getModuleSizesInMB } from "./src/utils/getModuleSizes.js";

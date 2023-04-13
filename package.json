@@ -1,6 +1,6 @@
 {
   "name": "modulekill",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "test",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,7 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^9.1.5"
+    "chalk": "^5.2.0",
+    "chalk-animation": "^2.0.3",
+    "gradient-string": "^2.0.2",
+    "inquirer": "^9.1.5",
+    "nanospinner": "^1.1.0"
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.3"
