@@ -1,10 +1,13 @@
 {
   "name": "modulekill",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "test",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
+  "bin": {
+    "modulekill": "dist/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,13 +15,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ansi-escapes": "^6.1.0",
     "chalk": "^5.2.0",
     "chalk-animation": "^2.0.3",
+    "figlet": "^1.6.0",
     "gradient-string": "^2.0.2",
     "inquirer": "^9.1.5",
     "nanospinner": "^1.1.0"
   },
   "devDependencies": {
+    "@types/figlet": "^1.5.5",
+    "@types/gradient-string": "^1.1.2",
     "@types/inquirer": "^9.0.3"
   }
 }

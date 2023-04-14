@@ -5,7 +5,7 @@ export async function filterAllModules(
   currentPath: string,
   pathsToAnalyzed: string[] = [],
   pathsWithModules: string[] = []
-): Promise<any> {
+): Promise<string[]> {
   pathsToAnalyzed.pop();
   const directoryContents = await fs.promises.opendir(currentPath);
   for await (const x of directoryContents) {
