@@ -26,6 +26,7 @@
   "devDependencies": {
     "@types/figlet": "^1.5.5",
     "@types/gradient-string": "^1.1.2",
-    "@types/inquirer": "^9.0.3"
+    "@types/inquirer": "^9.0.3",
+    "typescript": "^5.1.6"
   }
 }
