@@ -7,15 +7,17 @@ export async function filterAllModules(
   pathsWithModules: string[] = []
 ): Promise<string[]> {
   pathsToAnalyzed.pop();
-  const directoryContents = await fs.promises.opendir(currentPath);
-  for await (const x of directoryContents) {
-    if (x.isDirectory()) {
-      const pathWithDir = path.join(currentPath, x.name);
-      x.name === "node_modules"
-        ? pathsWithModules.push(pathWithDir)
-        : pathsToAnalyzed.push(pathWithDir);
+  try {
+    const directoryContents = await fs.promises.opendir(currentPath);
+    for await (const x of directoryContents) {
+      if (x.isDirectory()) {
+        const pathWithDir = path.join(currentPath, x.name);
+        x.name === "node_modules"
+          ? pathsWithModules.push(pathWithDir)
+          : pathsToAnalyzed.push(pathWithDir);
+      }
     }
-  }
+  } catch (error) {}
 
   if (pathsToAnalyzed.length > 0) {
     return filterAllModules(
