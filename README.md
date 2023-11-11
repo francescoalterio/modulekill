@@ -43,7 +43,7 @@ Francesco Alterio - francescoalteriog@gmail.com
 
 Repo: [https://github.com/francescoalterio/modulekill](https://github.com/francescoalterio/modulekill)
 
-Portfolio: [https://francescoalterio.tech/](https://francescoalterio.tech/)
+Portfolio: [https://francescoalterio.com/](https://francescoalterio.com/)
 
 Linkdin: [https://www.linkedin.com/in/francescoalterio/](https://www.linkedin.com/in/francescoalterio/)
 
