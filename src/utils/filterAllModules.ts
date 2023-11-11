@@ -1,27 +1,29 @@
-import fs from "fs";
-import path from "path";
+import { opendir } from "node:fs/promises";
+import path from "node:path";
 
-export async function filterAllModules(
-  currentPath: string,
-  pathsToAnalyzed: string[] = [],
-  pathsWithModules: string[] = []
-): Promise<string[]> {
-  pathsToAnalyzed.pop();
+type FilterAllModules = (currentPath: string, pathsToAnalyzed?: string[], pathsWithModules?: string[]) => Promise<string[]>
+
+export const filterAllModules: FilterAllModules = async function (
+  currentPath,
+  pathsToAnalyzed = [],
+  pathsWithModules = []
+) {
+
   try {
-    const directoryContents = await fs.promises.opendir(currentPath);
+    const directoryContents = await opendir(currentPath);
     for await (const x of directoryContents) {
       if (x.isDirectory()) {
         const pathWithDir = path.join(currentPath, x.name);
-        x.name === "node_modules"
-          ? pathsWithModules.push(pathWithDir)
-          : pathsToAnalyzed.push(pathWithDir);
+        if (x.name === "node_modules") pathsWithModules.push(pathWithDir)
+        else pathsToAnalyzed.push(pathWithDir);
       }
     }
-  } catch (error) {}
+  } catch (error) {
+  }
 
   if (pathsToAnalyzed.length > 0) {
     return filterAllModules(
-      pathsToAnalyzed[pathsToAnalyzed.length - 1],
+      pathsToAnalyzed.pop() as string,
       pathsToAnalyzed,
       pathsWithModules
     );

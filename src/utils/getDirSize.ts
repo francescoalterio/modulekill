@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import { opendir, stat } from "node:fs/promises";
+import path from "node:path";
 
 export async function getDirSize(
   currentPath: string,
@@ -7,17 +7,21 @@ export async function getDirSize(
   fileSizes: number[] = []
 ): Promise<any> {
   pathsToAnalyzed.pop();
-  const directoryContents = await fs.promises.opendir(currentPath);
-  for await (const x of directoryContents) {
-    if (x.isDirectory()) {
-      const pathWithDir = path.join(currentPath, x.name);
+  try {
+    const directoryContents = await opendir(currentPath);
+    for await (const x of directoryContents) {
+      if (x.isDirectory()) {
+        const pathWithDir = path.join(currentPath, x.name);
 
-      pathsToAnalyzed.push(pathWithDir);
-    } else {
-      const pathWithFile = path.join(currentPath, x.name);
-      const { size } = await fs.promises.stat(pathWithFile);
-      fileSizes.push(size);
+        pathsToAnalyzed.push(pathWithDir);
+      } else {
+        const pathWithFile = path.join(currentPath, x.name);
+        const { size } = await stat(pathWithFile);
+        fileSizes.push(size);
+      }
     }
+  } catch (e) {
+
   }
 
   if (pathsToAnalyzed.length > 0) {
