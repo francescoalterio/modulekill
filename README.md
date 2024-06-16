@@ -8,7 +8,7 @@
   </p>
 </div>
 
-![Dashboard ModuleKill](https://francescoalterio.tech/assets/external/modulekill/scanned.png)
+![Dashboard ModuleKill](https://francescoalterio.com/assets/external/modulekill/scanned.png)
 
 ## About The Project
 
@@ -27,7 +27,7 @@ To use the package just run a command in your terminal, making sure you are in t
   npx modulekill@latest
   ```
 
-![Scanning ModuleKill](https://francescoalterio.tech/assets/external/modulekill/scanning.png)
+![Scanning ModuleKill](https://francescoalterio.com/assets/external/modulekill/scanning.png)
 
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -35,7 +35,7 @@ To use the package just run a command in your terminal, making sure you are in t
 
 Using ModuleKill is quite simple, just use "Up" and "Down" to navigate and the "Enter" button to select the package to remove.
 
-![Scanning ModuleKill](https://francescoalterio.tech/assets/external/modulekill/deleting.png)
+![Scanning ModuleKill](https://francescoalterio.com/assets/external/modulekill/deleting.png)
 
 ## Contact
 
