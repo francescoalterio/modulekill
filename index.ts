@@ -10,7 +10,7 @@ import { InitScreen } from "./src/screens/InitScreen.js";
 const startingTime = Date.now();
 
 console.clear();
-(async function erwe() {
+(async function () {
   const answer = await InitScreen();
 
   if (answer.init) {
