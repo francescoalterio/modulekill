@@ -1,13 +1,13 @@
-import { opendir, stat, readdir, lstat } from "node:fs/promises";
+import { readdir, lstat } from "node:fs/promises";
 import path from "node:path";
 import { type Stats } from "node:fs";
 
 interface PromiseAndPath {
-  path: string;
-  promise: Promise<Stats>;
+  newPath: string;
+  stat: Stats;
 }
 
-export async function getDirSize(currentPath: string): Promise<number> {
+export async function getDirSize(currentPath: string) {
   const pathsToAnalyzed = [currentPath];
   let totalSize = 0;
 
@@ -15,25 +15,20 @@ export async function getDirSize(currentPath: string): Promise<number> {
     const currentPath = pathsToAnalyzed.pop() as string;
     try {
       const directoryContents = await readdir(currentPath);
-      const promises: PromiseAndPath[] = [];
-      for (const x of directoryContents) {
+      const statsPromises: Promise<PromiseAndPath>[] = [];
+      for (let i = 0; i < directoryContents.length; i++) {
+        const x = directoryContents[i];
         const newPath = path.join(currentPath, x);
-        promises.push({
-          path: newPath,
-          promise: lstat(newPath),
-        });
+        statsPromises.push(lstat(newPath).then((stat) => ({ stat, newPath })));
       }
-      const stats = await Promise.all(
-        promises.flatMap(({ promise }) => promise)
-      );
-      totalSize += stats.reduce((total, file, index) => {
-        if (file.isDirectory()) {
-          pathsToAnalyzed.push(promises[index].path);
-          return total;
+      const stats = await Promise.all(statsPromises);
+      for (let i = 0; i < stats.length; i++) {
+        if (stats[i].stat.isDirectory()) {
+          pathsToAnalyzed.push(stats[i].newPath);
         } else {
-          return total + file.size;
+          totalSize += stats[i].stat.size;
         }
-      }, 0);
+      }
     } catch (e) {
       // Manejar el error
     }
