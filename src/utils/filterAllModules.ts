@@ -1,4 +1,4 @@
-import { opendir } from "node:fs/promises";
+import { readdir, lstat } from "node:fs/promises";
 import path from "node:path";
 
 export async function filterAllModules(
@@ -7,12 +7,18 @@ export async function filterAllModules(
   pathsWithModules: string[] = []
 ): Promise<string[]> {
   try {
-    const directoryContents = await opendir(currentPath);
-    for await (const x of directoryContents) {
-      if (x.isDirectory()) {
-        const pathWithDir = path.join(currentPath, x.name);
-        if (x.name === "node_modules") pathsWithModules.push(pathWithDir);
-        else pathsToAnalyzed.push(pathWithDir);
+    const directoryContents = await readdir(currentPath);
+    const promises = [];
+    for (const x of directoryContents) {
+      const newPath = path.join(currentPath, x);
+      promises.push({ path: newPath, promise: lstat(newPath) });
+    }
+    const stats = await Promise.all(promises.flatMap(({ promise }) => promise));
+    for (let i = 0; i < stats.length; i++) {
+      if (stats[i].isDirectory()) {
+        if (promises[i].path.includes("node_modules"))
+          pathsWithModules.push(promises[i].path);
+        else pathsToAnalyzed.push(promises[i].path);
       }
     }
   } catch (error) {}

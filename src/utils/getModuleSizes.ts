@@ -12,10 +12,7 @@ export function getModuleSizesInMB(modules: string[]) {
   ).then((sizes) =>
     sizes.map(({ path, fileSizes }) => ({
       path,
-      size: (
-        fileSizes.reduce((acc: number, bytes: number) => acc + bytes, 0) /
-        1000000
-      ).toFixed(2),
+      size: (fileSizes / 1000000).toFixed(2),
     }))
   );
 }
