@@ -17,7 +17,7 @@ console.clear();
     console.clear();
     const analyzingSpinner = AnalyzingScreen();
 
-    filterAllModules(process.cwd())
+    filterAllModules()
       .then(getModuleSizesInMB)
       .then((data) => {
         const timeToAnalyze = (Date.now() - startingTime) / 1000;

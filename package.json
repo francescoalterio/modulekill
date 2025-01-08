@@ -20,6 +20,7 @@
     "chalk": "^5.2.0",
     "chalk-animation": "^2.0.3",
     "figlet": "^1.6.0",
+    "glob": "^11.0.0",
     "gradient-string": "^2.0.2",
     "inquirer": "^9.1.5",
     "nanospinner": "^1.1.0"
